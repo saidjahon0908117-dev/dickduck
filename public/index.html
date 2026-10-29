@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="uz"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Deutsch Lernen</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f7ff;--card:#fff;--ink:#101828;--mut:#667085;--line:#e6eaf3;--g:#00c566;--y:#ffd21f;--r:#ff3b5c;--b:#2aa8ff;--k:#111;--sh:0 8px 24px #1018280f}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font:16px/1.5 'Plus Jakarta Sans',system-ui,sans-serif;color:var(--ink);background:var(--bg);min-height:100vh}
+.stripe{display:none}
+header{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;gap:8px;background:#ffffffe6;backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line)}
+.logo{font-weight:800;font-size:21px;letter-spacing:-.6px}.logo em{font-style:normal;background:var(--y);color:var(--k);padding:1px 8px;border-radius:9px;margin-left:4px}
+.pill{background:#e6fbf0;color:#009a50;padding:6px 12px;border-radius:99px;font-size:14px;font-weight:800;white-space:nowrap}
+#nm{color:var(--mut);font-weight:600}
+#app{padding:18px 16px 110px;max-width:640px;margin:auto}
+h2{font-weight:800;font-size:28px;line-height:1.15;letter-spacing:-.8px;margin:6px 0 18px}
+h2 small{display:block;font:600 14px 'Plus Jakarta Sans',sans-serif;color:var(--mut);letter-spacing:0;margin-top:6px}
+.card{background:var(--card);border-radius:22px;padding:16px;margin-bottom:12px;box-shadow:var(--sh)}
+.btn{display:block;width:100%;border:0;border-radius:18px;padding:16px;font:800 16px 'Plus Jakarta Sans',sans-serif;background:var(--g);color:#fff;cursor:pointer;margin:10px 0;box-shadow:0 8px 20px #00c56655;transition:transform .12s}
+.btn:active,.tile:active,.opt:active{transform:scale(.96)}
+.btn.alt{background:var(--y);color:var(--k);box-shadow:0 8px 20px #ffd21f77}.btn.dark{background:var(--k);color:#fff;box-shadow:0 8px 20px #1114}.btn:disabled{opacity:.5}
+.opt{border:2px solid transparent;background:var(--card);color:var(--ink);border-radius:20px;padding:16px;margin:10px 0;font:700 17px 'Plus Jakarta Sans',sans-serif;cursor:pointer;width:100%;text-align:left;box-shadow:var(--sh);transition:transform .12s}
+.opt.sel{border-color:var(--g);background:#e6fbf0}
+.soon{text-align:center;color:var(--mut);font-size:14px;margin:10px 0 18px}
+input{width:100%;padding:15px 18px;border:2px solid var(--line);border-radius:18px;font:600 16px 'Plus Jakarta Sans',sans-serif;background:#fff;color:var(--ink);outline:0}
+input:focus{border-color:var(--b)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tile{position:relative;border:0;border-radius:28px;padding:16px;min-height:140px;font:800 19px 'Plus Jakarta Sans',sans-serif;cursor:pointer;text-align:left;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;overflow:hidden;transition:transform .12s;box-shadow:0 10px 24px #10182818}
+.tile:nth-child(1){grid-column:span 2;min-height:120px;flex-direction:row;align-items:center}
+.tile span{display:grid;place-items:center;width:56px;height:56px;border-radius:20px;background:#ffffff40;font-size:30px}
+.tile:after{content:"";position:absolute;right:-30px;bottom:-30px;width:110px;height:110px;border-radius:50%;background:#ffffff2e}
+.t0{background:var(--g);color:#fff}.t1{background:var(--r);color:#fff}.t2{background:var(--b);color:#fff}
+.t3{background:var(--k);color:#fff}.t3 span{background:#ffffff1f}.t4{background:var(--y);color:var(--k)}.t4 span{background:#ffffff66}
+.t5{background:#fff;color:var(--k)}.t5 span{background:#eef2ff}.t5:after{background:#ffd21f55}
+.back{background:#fff;border:0;border-radius:99px;font:700 14px 'Plus Jakarta Sans',sans-serif;color:var(--ink);cursor:pointer;padding:8px 16px;margin-bottom:14px;box-shadow:var(--sh)}
+.msgs{height:55vh;overflow:auto;padding:4px 2px}
+.m{padding:12px 15px;margin:8px 0;max-width:86%;word-wrap:break-word;border-radius:22px}
+.m b{background:#fff3b0;border-radius:5px;padding:0 3px}
+.m.u{background:var(--b);color:#fff;margin-left:auto;border-bottom-right-radius:6px;box-shadow:0 6px 16px #2aa8ff44}.m.u b{background:#ffffff40}
+.m.a{background:#fff;border-bottom-left-radius:6px;box-shadow:var(--sh)}
+.inp{display:flex;gap:8px;margin-top:10px}.inp input{flex:1;border-radius:99px}
+.inp button{border:0;border-radius:50%;width:50px;height:50px;font-size:20px;background:var(--g);color:#fff;cursor:pointer;flex:none;box-shadow:0 6px 16px #00c56655}
+.inp .mic{background:var(--y);color:var(--k)}
+.txt{font-size:19px;line-height:1.95}.txt span.w{cursor:pointer;border-radius:6px;padding:0 1px;border-bottom:3px solid var(--y)}.txt span.w:hover{background:#fff3b0}
+#pop{position:fixed;z-index:20;background:var(--k);color:#fff;border-radius:18px;padding:12px 15px;box-shadow:0 14px 40px #0005;display:none;max-width:260px}
+#pop button{background:var(--y);border:0;border-radius:99px;padding:7px 13px;font:800 14px 'Plus Jakarta Sans',sans-serif;color:var(--k);cursor:pointer}
+.lesson{display:flex;justify-content:space-between;align-items:center;cursor:pointer;border-left:6px solid var(--g)}.lesson:nth-child(4n+2){border-color:var(--y)}.lesson:nth-child(4n+3){border-color:var(--r)}.lesson:nth-child(4n){border-color:var(--b)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:11px 0;border-bottom:1px solid var(--line)}
+.row small{color:var(--mut);display:block}.row button{border:0;background:none;font-size:20px;cursor:pointer}
+.lv{display:flex;gap:10px}.lv .btn{margin:0}
+#fab{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));width:64px;height:64px;border-radius:22px;border:0;background:var(--r);font-size:30px;z-index:9;cursor:pointer;box-shadow:0 10px 28px #ff3b5c77;transition:transform .12s}
+#fab:active{transform:scale(.92)}
+#modal{position:fixed;inset:0;background:#10182899;backdrop-filter:blur(4px);z-index:30;display:none;align-items:flex-end}
+#modal>div{background:var(--bg);width:100%;max-width:640px;margin:auto;border-radius:30px 30px 0 0;padding:16px;height:82vh;display:flex;flex-direction:column}
+#modal .msgs{flex:1;height:auto}.mh{display:flex;justify-content:space-between;align-items:center;font-weight:800;font-size:20px;margin-bottom:8px}
+.mh button{border:0;background:var(--k);color:#fff;border-radius:50%;width:38px;height:38px;font-size:16px;cursor:pointer}
+.ok{background:#d7f7e6!important;border-color:var(--g)!important}.no{background:#ffe0e6!important;border-color:var(--r)!important}
+</style></head><body>
+<div class="stripe"></div>
+<header><span class="pill" id="cnt">👥 …</span><span class="logo">Deutsch<em>AI</em></span><span id="nm" style="font-size:13px;max-width:90px;overflow:hidden;text-overflow:ellipsis"></span></header>
+<div id="app"></div><div id="pop"></div>
+<button id="fab" style="display:none">🤖</button>
+<div id="modal"><div><div class="mh"><span>🤖 AI</span><button id="mx">✕</button></div><div id="mc" style="flex:1;display:flex;flex-direction:column;min-height:0"></div></div></div>
+<script>
+const tg=window.Telegram?.WebApp;tg?.ready();tg?.expand();try{tg?.setHeaderColor('#ffffff');tg?.setBackgroundColor('#f4f7ff')}catch{}
+const $=s=>document.querySelector(s);
+const NAMES={uz:'Uzbek',ru:'Russian',en:'English'};
+const T={
+uz:{home:'Bosh sahifa',grammar:'Grammatika',speaking:'Speaking',reading:'Reading',listening:'Listening',vocab:'Lug\'at',writing:'Writing',back:'← Orqaga',hello:'Salom',next:'Keyingi',name_q:'Ismingiz nima?',name_ph:'Ismingizni yozing',go:'Kirish',ph:'Xabar yozing…',err:'Xatolik, qayta urining',lesson:'Dars',newtext:'Yangi matn',tap:'💡 Noma\'lum so\'z ustiga bosing',translate:'Tarjima',saved:'✓ lug\'atga qo\'shildi',play:'▶ Tinglash',quiz:'Savollarni ko\'rsatish',search:'Qidirish…',load:'Yuklanmoqda…',words:'so\'z',chatph:'Erkin suhbat: nemischa yoki o\'zbekcha yozing'},
+ru:{home:'Главная',grammar:'Грамматика',speaking:'Speaking',reading:'Reading',listening:'Listening',vocab:'Словарь',writing:'Writing',back:'← Назад',hello:'Привет',next:'Далее',name_q:'Как вас зовут?',name_ph:'Введите имя',go:'Войти',ph:'Напишите сообщение…',err:'Ошибка, попробуйте снова',lesson:'Урок',newtext:'Новый текст',tap:'💡 Нажмите на незнакомое слово',translate:'Перевод',saved:'✓ добавлено в словарь',play:'▶ Слушать',quiz:'Показать вопросы',search:'Поиск…',load:'Загрузка…',words:'слов',chatph:'Свободный чат: пишите по-немецки или по-русски'},
+en:{home:'Home',grammar:'Grammar',speaking:'Speaking',reading:'Reading',listening:'Listening',vocab:'Vocabulary',writing:'Writing',back:'← Back',hello:'Hello',next:'Next',name_q:'What is your name?',name_ph:'Enter your name',go:'Enter',ph:'Type a message…',err:'Error, try again',lesson:'Lesson',newtext:'New text',tap:'💡 Tap an unknown word',translate:'Translate',saved:'✓ added to vocabulary',play:'▶ Listen',quiz:'Show questions',search:'Search…',load:'Loading…',words:'words',chatph:'Free chat: write in German or English'}};
+const LESSONS=['Alphabet und Aussprache','Personalpronomen und sein','Verben im Präsens (regelmäßig)','Artikel: der, die, das','Akkusativ','Negation: nicht und kein','Wortstellung im Satz','Modalverben','Trennbare Verben','Dativ','Perfekt','Präpositionen'];
+// de|uz|ru|en
+const RAW=`sein|bo'lmoq|быть|to be;haben|ega bo'lmoq|иметь|to have;arbeiten|ishlamoq|работать|to work;lernen|o'rganmoq|учить|to learn;machen|qilmoq|делать|to do;gehen|bormoq|идти|to go;kommen|kelmoq|приходить|to come;sprechen|gapirmoq|говорить|to speak;lesen|o'qimoq|читать|to read;schreiben|yozmoq|писать|to write;hören|eshitmoq|слушать|to hear;sehen|ko'rmoq|видеть|to see;essen|yemoq|есть|to eat;trinken|ichmoq|пить|to drink;wohnen|yashamoq|жить|to live;kaufen|sotib olmoq|покупать|to buy;fragen|so'ramoq|спрашивать|to ask;antworten|javob bermoq|отвечать|to answer;verstehen|tushunmoq|понимать|to understand;wissen|bilmoq|знать|to know;brauchen|kerak bo'lmoq|нуждаться|to need;wollen|xohlamoq|хотеть|to want;können|qila olmoq|мочь|can;spielen|o'ynamoq|играть|to play;fahren|haydamoq|ехать|to drive;schlafen|uxlamoq|спать|to sleep;helfen|yordam bermoq|помогать|to help;lieben|sevmoq|любить|to love;heißen|nomlanmoq|называться|to be called;suchen|izlamoq|искать|to search;der Mann|erkak|мужчина|man;die Frau|ayol|женщина|woman;das Kind|bola|ребёнок|child;der Freund|do'st|друг|friend;die Familie|oila|семья|family;die Mutter|ona|мать|mother;der Vater|ota|отец|father;der Bruder|aka/uka|брат|brother;die Schwester|opa/singil|сестра|sister;das Haus|uy|дом|house;die Wohnung|kvartira|квартира|apartment;die Stadt|shahar|город|city;das Land|davlat|страна|country;die Schule|maktab|школа|school;das Buch|kitob|книга|book;der Tisch|stol|стол|table;der Stuhl|stul|стул|chair;das Auto|mashina|машина|car;der Zug|poyezd|поезд|train;das Wasser|suv|вода|water;das Brot|non|хлеб|bread;der Apfel|olma|яблоко|apple;das Essen|ovqat|еда|food;der Tag|kun|день|day;die Nacht|tun|ночь|night;die Zeit|vaqt|время|time;das Geld|pul|деньги|money;die Arbeit|ish|работа|work;der Arzt|shifokor|врач|doctor;der Lehrer|o'qituvchi|учитель|teacher;das Wetter|ob-havo|погода|weather;die Hand|qo'l|рука|hand;der Name|ism|имя|name;die Sprache|til|язык|language;das Wort|so'z|слово|word;die Straße|ko'cha|улица|street;gut|yaxshi|хороший|good;schlecht|yomon|плохой|bad;groß|katta|большой|big;klein|kichik|маленький|small;neu|yangi|новый|new;alt|eski|старый|old;schön|chiroyli|красивый|beautiful;schnell|tez|быстрый|fast;langsam|sekin|медленный|slow;heiß|issiq|горячий|hot;kalt|sovuq|холодный|cold;leicht|oson|лёгкий|easy;schwer|qiyin|трудный|hard;glücklich|baxtli|счастливый|happy;müde|charchagan|уставший|tired;teuer|qimmat|дорогой|expensive;billig|arzon|дешёвый|cheap;jung|yosh|молодой|young;richtig|to'g'ri|правильный|correct;falsch|noto'g'ri|неправильный|wrong;ja|ha|да|yes;nein|yo'q|нет|no;danke|rahmat|спасибо|thanks;bitte|marhamat|пожалуйста|please;hallo|salom|привет|hello;tschüss|xayr|пока|bye;heute|bugun|сегодня|today;morgen|ertaga|завтра|tomorrow;gestern|kecha|вчера|yesterday;immer|doim|всегда|always;nie|hech qachon|никогда|never;und|va|и|and;aber|lekin|но|but;oder|yoki|или|or;weil|chunki|потому что|because;hier|bu yerda|здесь|here;dort|o'sha yerda|там|there;wo|qayerda|где|where;wer|kim|кто|who;was|nima|что|what;wie|qanday|как|how;warum|nega|почему|why;sehr|juda|очень|very;viel|ko'p|много|much;wenig|oz|мало|little`;
+const WORDS=RAW.split(';').map(s=>{const[a,b,c,d]=s.split('|');return{de:a,uz:b,ru:c,en:d}});
+
+let S=JSON.parse(localStorage.getItem('u')||'null');
+const uid=tg?.initDataUnsafe?.user?.id||(localStorage.rid||(localStorage.rid=String(Math.random()).slice(2)));
+const tr=k=>T[S?.native||'uz'][k];
+const store=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}};
+const vocab=()=>store('vocab',[]);
+const addWord=(de,t)=>{const v=vocab();if(!v.some(x=>x.de.toLowerCase()===de.toLowerCase())){v.unshift({de,tr:t});localStorage.setItem('vocab',JSON.stringify(v))}};
+const POST=(p,b)=>fetch(p,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)}).then(r=>r.json());
+const ai=async(messages,json)=>{const r=await POST('/api/ai',{messages,json});if(r.error)throw new Error(r.error);return r.text};
+const esc=s=>s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const md=s=>esc(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>');
+const speak=t=>{if(!window.speechSynthesis)return alert('Ovoz bu qurilmada qo\'llab-quvvatlanmaydi');speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='de-DE';u.rate=.85;speechSynthesis.speak(u)};
+const sys=()=>`You are a friendly, patient German teacher inside a Telegram app. The student's native language is ${NAMES[S.native]}. Explain in ${NAMES[S.native]}, give German examples with translations, keep answers short and clear, use **bold** for key German words. Level: beginner (A1-A2).`;
+const app=$('#app');
+
+async function count(){try{const r=await fetch('/api/count').then(r=>r.json());$('#cnt').textContent='👥 '+r.count}catch{}}
+setInterval(count,10000);count();
+
+/* ---------- ONBOARDING ---------- */
+function step1(){
+  app.innerHTML=`<h2>Qaysi tilni o'rganasiz?<br><small>Какой язык? · Which language?</small></h2>
+  <button class="opt sel">🇩🇪 Deutsch — Nemis tili</button>
+  <div class="soon">Boshqa tillar tez orada qo'shiladi<br>Другие языки скоро появятся · More languages coming soon</div>
+  <button class="btn" id="n">Keyingi · Далее · Next →</button>`;
+  $('#n').onclick=step2;
+}
+function step2(){
+  app.innerHTML=`<h2>Ona tilingiz?<br><small>Ваш родной язык · Your native language</small></h2>
+  <button class="opt" data-l="uz">🇺🇿 O'zbek tili</button><button class="opt" data-l="ru">🇷🇺 Русский язык</button><button class="opt" data-l="en">🇬🇧 English</button>`;
+  app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{S={native:b.dataset.l};step3()});
+}
+function step3(){
+  app.innerHTML=`<h2>${tr('name_q')}</h2><input id="in" maxlength="30" placeholder="${tr('name_ph')}"><button class="btn" id="g">${tr('go')}</button>`;
+  $('#g').onclick=async()=>{const name=$('#in').value.trim();if(!name)return;S.name=name;localStorage.setItem('u',JSON.stringify(S));await register();home()};
+}
+async function register(){try{const r=await POST('/api/register',{id:uid,name:S.name,native:S.native});if(r.count)$('#cnt').textContent='👥 '+r.count}catch{}}
+
+/* ---------- HOME ---------- */
+const SECS=[['grammar','📘'],['speaking','🎤'],['reading','📖'],['listening','🎧'],['vocab','🗂️'],['writing','✍️']];
+function home(){
+  $('#nm').textContent=S.name;$('#fab').style.display='block';
+  app.innerHTML=`<h2>${tr('hello')}, ${esc(S.name)}! 👋</h2><div class="grid">${SECS.map(([k,i],n)=>`<button class="tile t${n}" data-k="${k}"><span>${i}</span>${tr(k)}</button>`).join('')}</div>`;
+  app.querySelectorAll('.tile').forEach(b=>b.onclick=()=>VIEWS[b.dataset.k]());
+}
+function sub(title,html){app.innerHTML=`<button class="back" id="bk">${tr('back')}</button><h2>${title}</h2>${html}`;$('#bk').onclick=home}
+
+/* ---------- CHAT COMPONENT ---------- */
+function chat(el,{system,first,mic,ph}){
+  el.innerHTML=`<div class="msgs"></div><div class="inp"><input placeholder="${ph||tr('ph')}"><button class="mic" style="display:none">🎤</button><button class="snd">➤</button></div>`;
+  const box=el.querySelector('.msgs'),inp=el.querySelector('input'),hist=[{role:'system',content:system}];
+  const add=(c,w)=>{const d=document.createElement('div');d.className='m '+w;d.innerHTML=md(c);box.append(d);box.scrollTop=box.scrollHeight;return d};
+  const send=async(t,hide)=>{if(!t)return;if(!hide)add(t,'u');hist.push({role:'user',content:t});const w=add('…','a');
+    try{const a=await ai(hist);hist.push({role:'assistant',content:a});w.innerHTML=md(a)}catch(e){w.textContent='⚠️ '+tr('err')+' ('+e.message+')';hist.pop()}box.scrollTop=box.scrollHeight};
+  el.querySelector('.snd').onclick=()=>{const t=inp.value.trim();inp.value='';send(t)};
+  inp.onkeydown=e=>{if(e.key==='Enter')el.querySelector('.snd').click()};
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition,mb=el.querySelector('.mic');
+  if(mic&&SR){mb.style.display='block';mb.onclick=()=>{const r=new SR();r.lang='de-DE';mb.textContent='🔴';r.onresult=e=>{inp.value=e.results[0][0].transcript};r.onend=()=>{mb.textContent='🎤';if(inp.value){const t=inp.value;inp.value='';send(t)}};r.start()}}
+  if(first)send(first,true);
+}
+
+/* ---------- SECTIONS ---------- */
+const VIEWS={
+grammar(){
+  const done=store('done',[]);
+  sub(tr('grammar'),LESSONS.map((l,i)=>`<div class="card lesson" data-i="${i}"><span><b>${tr('lesson')} ${i+1}</b><br>${l}</span><span>${done.includes(i)?'✅':'▶'}</span></div>`).join(''));
+  app.querySelectorAll('.lesson').forEach(c=>c.onclick=()=>VIEWS.lesson(+c.dataset.i));
+},
+lesson(i){
+  const d=store('done',[]);if(!d.includes(i)){d.push(i);localStorage.setItem('done',JSON.stringify(d))}
+  app.innerHTML=`<button class="back" id="bk">${tr('back')}</button><h2>${tr('lesson')} ${i+1}: ${LESSONS[i]}</h2><div id="c"></div>`;
+  $('#bk').onclick=VIEWS.grammar;
+  chat($('#c'),{system:sys()+` Teach grammar lesson ${i+1}: "${LESSONS[i]}". Structure: 1) simple explanation, 2) examples with translations, 3) common mistakes, 4) give 3 exercises. Then check the student's answers and correct kindly.`,first:'Start the lesson.'});
+},
+speaking(){
+  sub(tr('speaking'),'<div id="c"></div>');
+  chat($('#c'),{mic:true,system:sys()+' You are a speaking partner. Ask ONE short German question at a time. The student answers (voice transcribed to text). Give brief feedback: corrected sentence + short explanation, then ask the next question.',first:'Start the conversation with an easy question.'});
+},
+writing(){
+  sub(tr('writing'),'<div id="c"></div>');
+  chat($('#c'),{system:sys()+' You are a writing coach. Give a short writing task. When the student submits text, show the corrected version, explain mistakes briefly, then give a new task a bit harder.',first:'Give me my first writing task.'});
+},
+reading(){
+  sub(tr('reading'),`<div class="lv"><button class="btn" data-l="A1">A1</button><button class="btn alt" data-l="A2">A2</button><button class="btn dark" data-l="B1">B1</button></div><p class="soon">${tr('tap')}</p><div class="card txt" id="t"></div>`);
+  const gen=async l=>{$('#t').textContent=tr('load');try{
+    const x=await ai([{role:'system',content:'You write German reading texts for learners. Output ONLY the German text, no title, no translation.'},{role:'user',content:`Write a short German text (70-100 words), level ${l}, about a random everyday topic.`}]);
+    $('#t').innerHTML=esc(x).replace(/([A-Za-zÄÖÜäöüß]+)/g,'<span class="w">$1</span>').replace(/\n/g,'<br>')}catch(e){$('#t').textContent='⚠️ '+tr('err')+' ('+e.message+')'}};
+  app.querySelectorAll('.lv .btn').forEach(b=>b.onclick=()=>gen(b.dataset.l));gen('A1');
+  $('#t').onclick=e=>{if(!e.target.classList.contains('w'))return;showPop(e.target)};
+},
+listening(){
+  sub(tr('listening'),`<button class="btn" id="g">${tr('newtext')}</button><div id="o"></div>`);
+  $('#g').onclick=async()=>{$('#o').innerHTML=`<p>${tr('load')}</p>`;try{
+    const j=JSON.parse(await ai([{role:'system',content:'Return JSON only: {"text":"German text 60-80 words, level A1-A2","questions":[{"q":"German question","o":["a","b","c"],"a":0}]} with exactly 3 questions.'}],true));
+    $('#o').innerHTML=`<button class="btn alt" id="p">${tr('play')}</button><button class="btn dark" id="q">${tr('quiz')}</button><div id="qs"></div>`;
+    $('#p').onclick=()=>speak(j.text);
+    $('#q').onclick=()=>{$('#q').remove();$('#qs').innerHTML=j.questions.map((q,i)=>`<div class="card"><b>${i+1}. ${esc(q.q)}</b>${q.o.map((o,k)=>`<button class="opt" data-i="${i}" data-k="${k}">${esc(o)}</button>`).join('')}</div>`).join('')+`<button class="btn" id="tx" style="background:var(--b)">📄 Text</button>`;
+      $('#qs').querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const q=j.questions[b.dataset.i];b.classList.add(+b.dataset.k===q.a?'ok':'no')});
+      $('#tx').onclick=()=>{$('#tx').outerHTML=`<div class="card txt">${esc(j.text)}</div>`}};
+  }catch(e){$('#o').innerHTML=`<p>⚠️ ${tr('err')} (${esc(e.message)})</p>`}};
+},
+vocab(){
+  const all=[...vocab().map(v=>({de:v.de,t:v.tr})),...WORDS.map(w=>({de:w.de,t:w[S.native]}))];
+  const draw=q=>{const f=all.filter(w=>(w.de+w.t).toLowerCase().includes(q.toLowerCase()));
+    $('#l').innerHTML=f.map(w=>`<div class="row"><span><b>${esc(w.de)}</b><small>${esc(w.t)}</small></span><button data-d="${esc(w.de)}">🔊</button></div>`).join('');
+    $('#l').querySelectorAll('button').forEach(b=>b.onclick=()=>speak(b.dataset.d))};
+  sub(`${tr('vocab')} (${all.length} ${tr('words')})`,`<input id="s" placeholder="${tr('search')}"><div class="card" id="l" style="margin-top:10px"></div>`);
+  $('#s').oninput=e=>draw(e.target.value);draw('');
+}};
+
+/* ---------- WORD TRANSLATE POPUP ---------- */
+const pop=$('#pop');
+function showPop(el){
+  const w=el.textContent,r=el.getBoundingClientRect();
+  pop.style.display='block';pop.style.left=Math.min(r.left,innerWidth-280)+'px';pop.style.top=(r.bottom+8)+'px';
+  pop.innerHTML=`<b>${esc(w)}</b> <button id="tb">🌐 ${tr('translate')}</button>`;
+  $('#tb').onclick=async()=>{pop.innerHTML=tr('load');try{
+    const j=JSON.parse(await ai([{role:'system',content:'Return JSON only: {"base":"dictionary form (infinitive for verbs, noun with article)","tr":"translation"}'},{role:'user',content:`German word "${w}" in sentence: "${el.parentElement.textContent.slice(0,300)}". Translate to ${NAMES[S.native]}.`}],true));
+    addWord(j.base,j.tr);pop.innerHTML=`<b>${esc(w)}</b> → ${esc(j.base)}<br>${esc(j.tr)}<br><small>${tr('saved')}</small>`;
+  }catch(e){pop.innerHTML='⚠️ '+tr('err')+' ('+esc(e.message)+')'}};
+}
+document.addEventListener('click',e=>{if(!pop.contains(e.target)&&!e.target.classList.contains('w'))pop.style.display='none'});
+
+/* ---------- FLOATING AI CHAT ---------- */
+let chatInit=false;
+$('#fab').onclick=()=>{$('#modal').style.display='flex';if(!chatInit){chatInit=true;
+  chat($('#mc'),{ph:tr('chatph'),system:sys()+' This is a free conversation. Answer the student\'s questions about German or chat simply in German with translations.'});
+  $('#mc').firstChild.insertAdjacentHTML('afterbegin',`<div class="m a">👋 ${tr('hello')}, ${esc(S.name)}!</div>`)}};
+$('#mx').onclick=()=>$('#modal').style.display='none';
+
+/* ---------- START ---------- */
+if(S){register();home()}else step1();
+</script></body></html>
